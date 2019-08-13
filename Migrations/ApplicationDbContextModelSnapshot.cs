@@ -17,6 +17,148 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Nome");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categoria");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Estoque", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ProdutoId");
+
+                    b.Property<float>("Saldo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Estoques");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Fornecedor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Telefone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fornecedores");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Produto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CategoriaId");
+
+                    b.Property<int?>("FornecedorId");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<float>("PrecoCusto");
+
+                    b.Property<int?>("PromocaoId");
+
+                    b.Property<bool>("Status");
+
+                    b.Property<int?>("UnidadeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
+
+                    b.HasIndex("FornecedorId");
+
+                    b.HasIndex("PromocaoId");
+
+                    b.HasIndex("UnidadeId");
+
+                    b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Promocao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataFinal");
+
+                    b.Property<DateTime>("DataInicio");
+
+                    b.Property<int>("PercentualDesconto");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Promocoes");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Saida", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataDaVenda");
+
+                    b.Property<int?>("ProdutoId");
+
+                    b.Property<float>("ValorDaVenda");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Saidas");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Unidade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Simbolo");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Unidades");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Venda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DataDaVenda");
+
+                    b.Property<float>("ValorDoTroco");
+
+                    b.Property<float>("ValorPago");
+
+                    b.Property<float>("ValorTotal");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Vendas");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -176,6 +318,39 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Estoque", b =>
+                {
+                    b.HasOne("MarktSys_ASP_NET_CORE.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Produto", b =>
+                {
+                    b.HasOne("MarktSys_ASP_NET_CORE.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId");
+
+                    b.HasOne("MarktSys_ASP_NET_CORE.Models.Fornecedor", "Fornecedor")
+                        .WithMany()
+                        .HasForeignKey("FornecedorId");
+
+                    b.HasOne("MarktSys_ASP_NET_CORE.Models.Promocao")
+                        .WithMany("Produtos")
+                        .HasForeignKey("PromocaoId");
+
+                    b.HasOne("MarktSys_ASP_NET_CORE.Models.Unidade", "Unidade")
+                        .WithMany()
+                        .HasForeignKey("UnidadeId");
+                });
+
+            modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.Saida", b =>
+                {
+                    b.HasOne("MarktSys_ASP_NET_CORE.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
