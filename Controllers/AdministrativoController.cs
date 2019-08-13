@@ -8,9 +8,16 @@ namespace MarktSys_ASP_NET_CORE.Controllers
 {
     public class AdministrativoController : Controller
     {
-        public IActionResult Index()
-        {
+        public IActionResult Index(){
             return View();
         }
+
+        public IActionResult Categorias() {
+            return View();
+        }
+        public IActionResult NovaCategoria() {
+            return View();
+        }
+
     }
 }
