@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MarktSys_ASP_NET_CORE.Models.Unidade>
+
+@{
+    ViewData["Title"] = "Unidades";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Unidades</h1>
+
+<p>
+    <a asp-controller="Administrativo" asp-action="NovaUnidade" class="btn btn-success">Criar nova unidade</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Simbolo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Simbolo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Detalhes", "Detalhes", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Excluir", "Excluir", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

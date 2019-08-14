@@ -12,5 +12,7 @@ namespace MarktSys_ASP_NET_CORE.Models {
 
         public string Simbolo { get; set; }
 
+        public bool Status { get; set; }
+
     }
 }

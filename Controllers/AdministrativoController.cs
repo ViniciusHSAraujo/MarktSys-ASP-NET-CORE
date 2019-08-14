@@ -29,12 +29,19 @@ namespace MarktSys_ASP_NET_CORE.Controllers
         }
 
         public IActionResult Fornecedores() {
-            var listaFornecedores = database.Fornecedores.ToList();
+            var listaFornecedores = database.Fornecedores.Where(f => f.Status).ToList();
             return View(listaFornecedores);
         }
         public IActionResult NovoFornecedor() {
             return View();
         }
 
+        public IActionResult Unidades() {
+            var listaUnidades = database.Unidades.Where(u => u.Status).ToList();
+            return View(listaUnidades);
+        }
+        public IActionResult NovaUnidade() {
+            return View();
+        }
     }
 }

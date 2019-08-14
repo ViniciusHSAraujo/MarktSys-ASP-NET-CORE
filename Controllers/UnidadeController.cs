@@ -9,31 +9,31 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarktSys_ASP_NET_CORE.Controllers
 {
-    public class CategoriaController : Controller
-    {
+    public class UnidadeController : Controller{
 
         public readonly ApplicationDbContext database;
 
-        public CategoriaController(ApplicationDbContext database) {
+        public UnidadeController(ApplicationDbContext database) {
             this.database = database;
         }
 
         [HttpPost]
-        public IActionResult Salvar(CategoriaDTO categoriaDTO) {
+        public IActionResult Salvar(UnidadeDTO unidadeDTO){
 
             if (ModelState.IsValid) {
-                Categoria categoria = new Categoria() {
-                    Nome = categoriaDTO.Nome,
+                Unidade unidade = new Unidade() {
+                    Nome = unidadeDTO.Nome,
+                    Simbolo = unidadeDTO.Simbolo,
                     Status = true
                 };
 
-                database.Categorias.Add(categoria);
+                database.Unidades.Add(unidade);
                 database.SaveChanges();
             } else {
-                return View("../administrativo/novacategoria");
+                return View("../administrativo/novaunidade");
             }
 
-            return RedirectToAction("Categorias", "Administrativo");
+            return RedirectToAction("Unidades", "Administrativo");
         }
     }
 }
