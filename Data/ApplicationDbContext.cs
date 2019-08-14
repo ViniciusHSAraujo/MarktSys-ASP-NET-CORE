@@ -12,6 +12,8 @@ namespace MarktSys_ASP_NET_CORE.Data
             : base(options) {
         }
 
+        public DbSet<Categoria> Categorias { get; set; }
+
         public DbSet<Fornecedor> Fornecedores { get; set; }
 
         public DbSet<Unidade> Unidades { get; set; }

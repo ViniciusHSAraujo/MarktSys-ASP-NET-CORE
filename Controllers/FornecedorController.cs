@@ -9,12 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarktSys_ASP_NET_CORE.Controllers
 {
-    public class CategoriaController : Controller
-    {
+    public class FornecedorController : Controller{
 
         public readonly ApplicationDbContext database;
 
-        public CategoriaController(ApplicationDbContext database) {
+        public FornecedorController(ApplicationDbContext database) {
             this.database = database;
         }
 
@@ -22,22 +21,23 @@ namespace MarktSys_ASP_NET_CORE.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Salvar(CategoriaDTO categoriaDTO) {
+        public IActionResult Salvar(FornecedorDTO fornecedorDTO) {
 
             if (ModelState.IsValid) {
-                Categoria categoria = new Categoria() {
-                    Nome = categoriaDTO.Nome,
+                Fornecedor fornecedor = new Fornecedor() {
+                    Nome = fornecedorDTO.Nome,
+                    Email = fornecedorDTO.Email,
+                    Telefone = fornecedorDTO.Telefone,
                     Status = true
                 };
 
-                database.Categorias.Add(categoria);
+                database.Fornecedores.Add(fornecedor);
                 database.SaveChanges();
             } else {
-                return View("../administrativo/novacategoria");
+                return View("../administrativo/novofornecedor");
             }
 
-            return RedirectToAction("Categorias", "Administrativo");
+            return RedirectToAction("Fornecedores", "Administrativo");
         }
     }
 }

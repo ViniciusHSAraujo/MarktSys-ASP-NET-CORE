@@ -14,5 +14,7 @@ namespace MarktSys_ASP_NET_CORE.Models {
 
         public string Telefone { get; set; }
 
+        public bool Status { get; set; }
+
     }
 }
