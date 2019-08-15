@@ -9,7 +9,13 @@
     <a asp-controller="Administrativo" asp-action="NovaCategoria" class="btn btn-success">Criar nova categoria</a>
 </p>
 
-<table class="table">
+    <script>
+        $(document).ready( function () {
+        $('#categorias').DataTable();
+    } );
+    </script>
+
+<table class="table" id="categorias">
     <thead>
         <tr>
             <th>

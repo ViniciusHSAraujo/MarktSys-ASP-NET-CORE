@@ -7,10 +7,16 @@
 
 <h1>Unidades</h1>
 
+    <script>
+        $(document).ready( function () {
+        $('#unidades').DataTable();
+    } );
+    </script>
+
 <p>
     <a asp-controller="Administrativo" asp-action="NovaUnidade" class="btn btn-success">Criar nova unidade</a>
 </p>
-<table class="table">
+<table class="table" id="unidades">
     <thead>
         <tr>
             <th>

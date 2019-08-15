@@ -7,11 +7,17 @@
 
 <h1>Fornecedores</h1>
 
+    <script>
+        $(document).ready(function () {
+            $('#fornecedores').DataTable();
+        });
+    </script>
+
 <p>
     <a asp-controller="Administrativo" asp-action="NovoFornecedor" class="btn btn-success">Criar novo fornecedor</a>
 
 </p>
-<table class="table">
+<table class="table" id="fornecedores">
     <thead>
         <tr>
             <th>

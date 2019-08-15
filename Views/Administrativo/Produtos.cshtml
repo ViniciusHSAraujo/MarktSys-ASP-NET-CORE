@@ -5,12 +5,18 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+    <script>
+        $(document).ready(function () {
+            $('#produtos').DataTable();
+        });
+    </script>
+
 <h1>Produtos</h1>
 
 <p>
     <a asp-controller="Administrativo" asp-action="NovoProduto" class="btn btn-success">Criar novo Produto</a>
 </p>
-<table class="table">
+<table class="table" id="produtos">
     <thead>
         <tr>
             <th>
