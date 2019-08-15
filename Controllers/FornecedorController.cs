@@ -17,10 +17,6 @@ namespace MarktSys_ASP_NET_CORE.Controllers
             this.database = database;
         }
 
-        public IActionResult Index(){
-            return View();
-        }
-
         public IActionResult Salvar(FornecedorDTO fornecedorDTO) {
 
             if (ModelState.IsValid) {

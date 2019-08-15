@@ -43,5 +43,18 @@ namespace MarktSys_ASP_NET_CORE.Controllers
         public IActionResult NovaUnidade() {
             return View();
         }
+
+        public IActionResult Produtos() {
+            var listaProdutos = database.Produtos.Where(p => p.Status).ToList();
+            return View(listaProdutos);
+        }
+        public IActionResult NovoProduto() {
+
+            ViewBag.categorias = database.Categorias.ToList();
+            ViewBag.unidades = database.Unidades.ToList();
+            ViewBag.fornecedores = database.Fornecedores.ToList();
+
+            return View();
+        }
     }
 }

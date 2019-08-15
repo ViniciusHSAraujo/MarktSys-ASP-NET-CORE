@@ -1,0 +1,57 @@
+﻿@model MarktSys_ASP_NET_CORE.DTO.ProdutoDTO
+
+@{
+    ViewData["Title"] = "NovoProduto";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Produto" asp-action="Salvar" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" value="0" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriaID" class="control-label"></label>
+                <select asp-for="CategoriaID" class="form-control" asp-items='@(new SelectList(@ViewBag.Categorias, "Id", "Nome"))'></select>
+                <span asp-validation-for="CategoriaID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FornecedorID" class="control-label"></label>
+                <select asp-for="FornecedorID" class="form-control" asp-items='@(new SelectList(@ViewBag.Fornecedores, "Id", "Nome"))'></select>
+                <span asp-validation-for="FornecedorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecoCusto" class="control-label"></label>
+                <input asp-for="PrecoCusto" class="form-control" />
+                <span asp-validation-for="PrecoCusto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrecoVenda" class="control-label"></label>
+                <input asp-for="PrecoVenda" class="form-control" />
+                <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnidadeID" class="control-label"></label>
+                <select asp-for="UnidadeID" class="form-control" asp-items='@(new SelectList(@ViewBag.Unidades, "Id", "Nome"))'></select>
+                <span asp-validation-for="UnidadeID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Administrativo" asp-action="Produtos">Voltar à lista</a>
+</div>
+

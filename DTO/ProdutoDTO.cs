@@ -26,6 +26,11 @@ namespace MarktSys_ASP_NET_CORE.DTO {
         public float PrecoCusto { get; set; }
 
         [Required]
+        [Range(0, 9999999.99, ErrorMessage = "Valor inválido!")]
+        public float PrecoVenda { get; set; }
+
+
+        [Required]
         public int UnidadeID { get; set; }
     }
 }
