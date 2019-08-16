@@ -66,6 +66,19 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
         public IActionResult NovaUnidade() {
             return View();
         }
+        public IActionResult EditarUnidade(int id) {
+            Unidade unidade = database.Unidades.First(u => u.Id == id);
+
+            UnidadeDTO unidadeDTO = new UnidadeDTO() {
+                Id = unidade.Id,
+                Nome = unidade.Nome,
+                Simbolo = unidade.Simbolo
+            };
+
+
+            return View(unidadeDTO);
+        }
+
 
         public IActionResult Produtos() {
             var listaProdutos = database.Produtos.Where(p => p.Status).ToList();

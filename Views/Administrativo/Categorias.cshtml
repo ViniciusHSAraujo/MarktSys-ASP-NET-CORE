@@ -40,7 +40,7 @@
                     @Html.ActionLink("Editar", "EditarCategoria", new { item.Id }, new { @class = "btn btn-warning" })
                     <form asp-controller="Categoria" asp-action="Inativar" method="post" style="display: inline">
                         <input name="id" value="@item.Id" class="form-control" hidden/>
-                        <input type="submit" value="Excluir" class="btn btn-danger" />
+                        <input type="submit" value="Excluir" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja fazer essa exclusão?');"/>
                     </form>
                 </td>
             </tr>

@@ -5,8 +5,6 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Unidades</h1>
-
     <script>
         $(document).ready( function () {
         $('#unidades').DataTable();
@@ -47,12 +45,11 @@
                 @Html.DisplayFor(modelItem => item.Simbolo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Editar", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Detalhes", "Detalhes", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Excluir", "Excluir", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "EditarUnidade", new { item.Id }, new { @class = "btn btn-warning" })
+                <form asp-controller="Unidade" asp-action="Inativar" method="post" style="display: inline">
+                    <input name="id" value="@item.Id" class="form-control" hidden />
+                    <input type="submit" value="Excluir" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja fazer essa exclusão?');" />
+                </form>
             </td>
         </tr>
 }
