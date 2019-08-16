@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MarktSys_ASP_NET_CORE.DTO {
     public class ProdutoDTO {
@@ -22,7 +18,7 @@ namespace MarktSys_ASP_NET_CORE.DTO {
         public int FornecedorID { get; set; }
 
         [Required]
-        [Range(0, 9999999.99, ErrorMessage ="Valor inválido!")]
+        [Range(0, 9999999.99, ErrorMessage = "Valor inválido!")]
         public float PrecoCusto { get; set; }
 
         [Required]

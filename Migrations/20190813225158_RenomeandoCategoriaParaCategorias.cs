@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MarktSys_ASP_NET_CORE.Migrations
-{
-    public partial class RenomeandoCategoriaParaCategorias : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+namespace MarktSys_ASP_NET_CORE.Migrations {
+    public partial class RenomeandoCategoriaParaCategorias : Migration {
+        protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropForeignKey(
                 name: "FK_Produtos_Categoria_CategoriaId",
                 table: "Produtos");
@@ -32,8 +29,7 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                 onDelete: ReferentialAction.Restrict);
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropForeignKey(
                 name: "FK_Produtos_Categorias_CategoriaId",
                 table: "Produtos");

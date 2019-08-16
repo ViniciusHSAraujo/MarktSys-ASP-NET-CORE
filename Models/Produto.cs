@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MarktSys_ASP_NET_CORE.Models {
+﻿namespace MarktSys_ASP_NET_CORE.Models {
     public class Produto {
 
         public int Id { get; set; }
@@ -14,9 +9,9 @@ namespace MarktSys_ASP_NET_CORE.Models {
 
         public Fornecedor Fornecedor { get; set; }
 
-        public float PrecoCusto{ get; set; }
+        public float PrecoCusto { get; set; }
 
-        public float PrecoVenda{ get; set; }
+        public float PrecoVenda { get; set; }
 
         public Unidade Unidade { get; set; }
 

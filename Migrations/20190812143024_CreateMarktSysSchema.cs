@@ -1,74 +1,62 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
-namespace MarktSys_ASP_NET_CORE.Migrations
-{
-    public partial class CreateMarktSysSchema : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+namespace MarktSys_ASP_NET_CORE.Migrations {
+    public partial class CreateMarktSysSchema : Migration {
+        protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable(
                 name: "Categoria",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Categoria", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Fornecedores",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Telefone = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Fornecedores", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Promocoes",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     PercentualDesconto = table.Column<int>(nullable: false),
                     DataInicio = table.Column<DateTime>(nullable: false),
                     DataFinal = table.Column<DateTime>(nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Promocoes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Unidades",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(nullable: true),
                     Simbolo = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Unidades", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Vendas",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DataDaVenda = table.Column<DateTime>(nullable: false),
@@ -76,15 +64,13 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                     ValorPago = table.Column<float>(nullable: false),
                     ValorDoTroco = table.Column<float>(nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Vendas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Produtos",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(nullable: true),
@@ -95,8 +81,7 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                     Status = table.Column<bool>(nullable: false),
                     PromocaoId = table.Column<int>(nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Produtos", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Produtos_Categoria_CategoriaId",
@@ -126,15 +111,13 @@ namespace MarktSys_ASP_NET_CORE.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Estoques",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ProdutoId = table.Column<int>(nullable: true),
                     Saldo = table.Column<float>(nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Estoques", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Estoques_Produtos_ProdutoId",
@@ -146,16 +129,14 @@ namespace MarktSys_ASP_NET_CORE.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Saidas",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ProdutoId = table.Column<int>(nullable: true),
                     ValorDaVenda = table.Column<float>(nullable: false),
                     DataDaVenda = table.Column<DateTime>(nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Saidas", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Saidas_Produtos_ProdutoId",
@@ -196,8 +177,7 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                 column: "ProdutoId");
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropTable(
                 name: "Estoques");
 

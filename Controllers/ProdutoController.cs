@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MarktSys_ASP_NET_CORE.Data;
+﻿using MarktSys_ASP_NET_CORE.Data;
 using MarktSys_ASP_NET_CORE.DTO;
 using MarktSys_ASP_NET_CORE.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
-namespace MarktSys_ASP_NET_CORE.Controllers
-{
-    public class ProdutoController : Controller{
+namespace MarktSys_ASP_NET_CORE.Controllers {
+    public class ProdutoController : Controller {
         public readonly ApplicationDbContext database;
 
         public ProdutoController(ApplicationDbContext database) {

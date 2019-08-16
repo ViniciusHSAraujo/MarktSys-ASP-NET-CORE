@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MarktSys_ASP_NET_CORE.Migrations
-{
-    public partial class AdicionandoStatusNaUnidade : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+namespace MarktSys_ASP_NET_CORE.Migrations {
+    public partial class AdicionandoStatusNaUnidade : Migration {
+        protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.AddColumn<bool>(
                 name: "Status",
                 table: "Unidades",
@@ -13,8 +10,7 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                 defaultValue: false);
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropColumn(
                 name: "Status",
                 table: "Unidades");

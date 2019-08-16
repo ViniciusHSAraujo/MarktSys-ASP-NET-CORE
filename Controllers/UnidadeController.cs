@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MarktSys_ASP_NET_CORE.Data;
+﻿using MarktSys_ASP_NET_CORE.Data;
 using MarktSys_ASP_NET_CORE.DTO;
 using MarktSys_ASP_NET_CORE.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MarktSys_ASP_NET_CORE.Controllers
-{
-    public class UnidadeController : Controller{
+namespace MarktSys_ASP_NET_CORE.Controllers {
+    public class UnidadeController : Controller {
 
         public readonly ApplicationDbContext database;
 
@@ -18,7 +13,7 @@ namespace MarktSys_ASP_NET_CORE.Controllers
         }
 
         [HttpPost]
-        public IActionResult Salvar(UnidadeDTO unidadeDTO){
+        public IActionResult Salvar(UnidadeDTO unidadeDTO) {
 
             if (ModelState.IsValid) {
                 Unidade unidade = new Unidade() {

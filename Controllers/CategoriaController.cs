@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MarktSys_ASP_NET_CORE.Data;
+﻿using MarktSys_ASP_NET_CORE.Data;
 using MarktSys_ASP_NET_CORE.DTO;
 using MarktSys_ASP_NET_CORE.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
-namespace MarktSys_ASP_NET_CORE.Controllers
-{
-    public class CategoriaController : Controller
-    {
+namespace MarktSys_ASP_NET_CORE.Controllers {
+    public class CategoriaController : Controller {
 
         public readonly ApplicationDbContext database;
 
@@ -59,7 +54,7 @@ namespace MarktSys_ASP_NET_CORE.Controllers
             Categoria categoriaBanco = database.Categorias.First(c => c.Id == id);
             categoriaBanco.Status = false;
             database.SaveChanges();
-            
+
             return RedirectToAction("Categorias", "Administrativo");
         }
     }
