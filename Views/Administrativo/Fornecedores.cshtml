@@ -4,9 +4,6 @@
     ViewData["Title"] = "Fornecedores";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<h1>Fornecedores</h1>
-
     <script>
         $(document).ready(function () {
             $('#fornecedores').DataTable();
@@ -51,9 +48,11 @@
                 @Html.DisplayFor(modelItem => item.Telefone)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Detalhes", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Deletar", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "EditarFornecedor", new { item.Id }, new { @class = "btn btn-warning" })
+                <form asp-controller="Fornecedor" asp-action="Inativar" method="post" style="display: inline">
+                    <input name="id" value="@item.Id" class="form-control" hidden />
+                    <input type="submit" value="Excluir" class="btn btn-danger" />
+                </form>
             </td>
         </tr>
 }

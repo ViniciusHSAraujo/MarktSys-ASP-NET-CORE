@@ -46,6 +46,19 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
             return View();
         }
 
+        public IActionResult EditarFornecedor(int id) {
+            Fornecedor fornecedor = database.Fornecedores.First(f => f.Id == id);
+
+            FornecedorDTO fornecedorDTO = new FornecedorDTO() {
+                Id = fornecedor.Id,
+                Nome = fornecedor.Nome,
+                Email = fornecedor.Email,
+                Telefone = fornecedor.Telefone
+            };
+
+
+            return View(fornecedorDTO);
+        }
         public IActionResult Unidades() {
             var listaUnidades = database.Unidades.Where(u => u.Status).ToList();
             return View(listaUnidades);
