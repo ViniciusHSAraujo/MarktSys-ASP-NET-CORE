@@ -37,9 +37,11 @@
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>   
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Editar", "EditarCategoria", new { item.Id }, new { @class = "btn btn-warning" })
+                    <form asp-controller="Categoria" asp-action="Inativar" method="post" style="display: inline">
+                        <input name="id" value="@item.Id" class="form-control" hidden/>
+                        <input type="submit" value="Excluir" class="btn btn-danger" />
+                    </form>
                 </td>
             </tr>
         }

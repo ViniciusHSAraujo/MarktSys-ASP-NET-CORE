@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MarktSys_ASP_NET_CORE.Data;
+using MarktSys_ASP_NET_CORE.DTO;
+using MarktSys_ASP_NET_CORE.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarktSys_ASP_NET_CORE.Controllers
@@ -26,6 +28,18 @@ namespace MarktSys_ASP_NET_CORE.Controllers
         }
         public IActionResult NovaCategoria() {
             return View();
+        }
+
+        public IActionResult EditarCategoria(int id) {
+            Categoria categoria = database.Categorias.First(c => c.Id == id);
+
+            CategoriaDTO categoriaDTO = new CategoriaDTO() {
+                Id = categoria.Id,
+                Nome = categoria.Nome,
+            };
+
+
+            return View(categoriaDTO);
         }
 
         public IActionResult Fornecedores() {

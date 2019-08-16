@@ -35,5 +35,32 @@ namespace MarktSys_ASP_NET_CORE.Controllers
 
             return RedirectToAction("Categorias", "Administrativo");
         }
+
+        [HttpPost]
+        public IActionResult Editar(CategoriaDTO categoriaDTO) {
+
+            if (ModelState.IsValid) {
+
+                Categoria categoriaBanco = database.Categorias.First(c => c.Id == categoriaDTO.Id);
+
+                categoriaBanco.Nome = categoriaDTO.Nome;
+
+                database.SaveChanges();
+            } else {
+                return View("../administrativo/novacategoria");
+            }
+
+            return RedirectToAction("Categorias", "Administrativo");
+        }
+
+        [HttpPost]
+        public IActionResult Inativar(int id) {
+
+            Categoria categoriaBanco = database.Categorias.First(c => c.Id == id);
+            categoriaBanco.Status = false;
+            database.SaveChanges();
+            
+            return RedirectToAction("Categorias", "Administrativo");
+        }
     }
 }
