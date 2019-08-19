@@ -37,5 +37,37 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
 
             return RedirectToAction("Produtos", "Administrativo");
         }
+
+        [HttpPost]
+        public IActionResult Editar(ProdutoDTO produtoDTO) {
+
+            if (ModelState.IsValid) {
+
+                Produto produtoBanco = database.Produtos.First(p => p.Id == produtoDTO.Id);
+
+                produtoBanco.Nome = produtoDTO.Nome;
+                produtoBanco.PrecoCusto = produtoDTO.PrecoCusto;
+                produtoBanco.PrecoVenda = produtoDTO.PrecoVenda;
+                produtoBanco.Categoria = database.Categorias.First(c => c.Id == produtoDTO.CategoriaID);
+                produtoBanco.Fornecedor = database.Fornecedores.First(f => f.Id == produtoDTO.FornecedorID);
+                produtoBanco.Unidade = database.Unidades.First(u => u.Id == produtoDTO.UnidadeID);
+
+                database.SaveChanges();
+            } else {
+                return View("../administrativo/novoproduto");
+            }
+
+            return RedirectToAction("Produtos", "Administrativo");
+        }
+
+        [HttpPost]
+        public IActionResult Inativar(int id) {
+
+            Produto produtoBanco = database.Produtos.First(p => p.Id == id);
+            produtoBanco.Status = false;
+            database.SaveChanges();
+
+            return RedirectToAction("Produtos", "Administrativo");
+        }
     }
 }

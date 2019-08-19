@@ -3,14 +3,16 @@ using System;
 using MarktSys_ASP_NET_CORE.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MarktSys_ASP_NET_CORE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190817002923_AdicionandoTabelaDeProdutosDeUmaPromocao")]
+    partial class AdicionandoTabelaDeProdutosDeUmaPromocao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,6 +82,8 @@ namespace MarktSys_ASP_NET_CORE.Migrations
 
                     b.Property<float>("PrecoVenda");
 
+                    b.Property<int?>("PromocaoId");
+
                     b.Property<bool>("Status");
 
                     b.Property<int?>("UnidadeId");
@@ -89,6 +93,8 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("FornecedorId");
+
+                    b.HasIndex("PromocaoId");
 
                     b.HasIndex("UnidadeId");
 
@@ -354,6 +360,10 @@ namespace MarktSys_ASP_NET_CORE.Migrations
                         .WithMany()
                         .HasForeignKey("FornecedorId");
 
+                    b.HasOne("MarktSys_ASP_NET_CORE.Models.Promocao")
+                        .WithMany("Produtos")
+                        .HasForeignKey("PromocaoId");
+
                     b.HasOne("MarktSys_ASP_NET_CORE.Models.Unidade", "Unidade")
                         .WithMany()
                         .HasForeignKey("UnidadeId");
@@ -362,12 +372,12 @@ namespace MarktSys_ASP_NET_CORE.Migrations
             modelBuilder.Entity("MarktSys_ASP_NET_CORE.Models.PromocaoProduto", b =>
                 {
                     b.HasOne("MarktSys_ASP_NET_CORE.Models.Produto", "Produto")
-                        .WithMany("PromocaoProdutos")
+                        .WithMany()
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("MarktSys_ASP_NET_CORE.Models.Promocao", "Promocao")
-                        .WithMany("PromocaoProdutos")
+                        .WithMany()
                         .HasForeignKey("PromocaoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

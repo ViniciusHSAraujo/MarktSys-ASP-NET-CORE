@@ -2,6 +2,7 @@
 using MarktSys_ASP_NET_CORE.DTO;
 using MarktSys_ASP_NET_CORE.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace MarktSys_ASP_NET_CORE.Controllers {
@@ -79,18 +80,48 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
             return View(unidadeDTO);
         }
 
-
         public IActionResult Produtos() {
-            var listaProdutos = database.Produtos.Where(p => p.Status).ToList();
+            var listaProdutos = database.Produtos.Include(p => p.Categoria).Include(p => p.Unidade).Include(p => p.Fornecedor).Where(p => p.Status).ToList();
             return View(listaProdutos);
         }
         public IActionResult NovoProduto() {
 
-            ViewBag.categorias = database.Categorias.ToList();
-            ViewBag.unidades = database.Unidades.ToList();
-            ViewBag.fornecedores = database.Fornecedores.ToList();
+            ViewBag.categorias = database.Categorias.Where(c => c.Status).ToList();
+            ViewBag.unidades = database.Unidades.Where(u => u.Status).ToList();
+            ViewBag.fornecedores = database.Fornecedores.Where(f => f.Status).ToList();
 
             return View();
         }
+
+        public IActionResult EditarProduto(int id) {
+
+            ViewBag.categorias = database.Categorias.Where(c => c.Status).ToList();
+            ViewBag.unidades = database.Unidades.Where(u => u.Status).ToList();
+            ViewBag.fornecedores = database.Fornecedores.Where(f => f.Status).ToList();
+
+            Produto produto = database.Produtos.Include(p => p.Categoria).Include(p => p.Fornecedor).Include(p => p.Unidade).First(p => p.Id == id);
+
+            ProdutoDTO produtoDTO = new ProdutoDTO() {
+                Id = produto.Id,
+                Nome = produto.Nome,
+                CategoriaID = produto.Categoria.Id,
+                FornecedorID = produto.Fornecedor.Id,
+                UnidadeID = produto.Unidade.Id,
+                PrecoCusto = produto.PrecoCusto,
+                PrecoVenda = produto.PrecoVenda
+            };
+            return View(produtoDTO);
+        }
+
+        [HttpPost]
+        public IActionResult Inativar(int id) {
+
+            Produto produtoBanco = database.Produtos.First(p => p.Id == id);
+            produtoBanco.Status = false;
+            database.SaveChanges();
+
+            return RedirectToAction("Produtos", "Administrativo");
+        }
+
     }
 }

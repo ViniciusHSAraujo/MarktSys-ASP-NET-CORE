@@ -1,4 +1,6 @@
-﻿namespace MarktSys_ASP_NET_CORE.Models {
+﻿using System.Collections.Generic;
+
+namespace MarktSys_ASP_NET_CORE.Models {
     public class Produto {
 
         public int Id { get; set; }
@@ -17,5 +19,6 @@
 
         public bool Status { get; set; }
 
+        public virtual ICollection<PromocaoProduto> PromocaoProdutos { get; set; }
     }
 }

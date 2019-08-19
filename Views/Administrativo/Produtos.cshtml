@@ -10,9 +10,6 @@
             $('#produtos').DataTable();
         });
     </script>
-
-<h1>Produtos</h1>
-
 <p>
     <a asp-controller="Administrativo" asp-action="NovoProduto" class="btn btn-success">Criar novo Produto</a>
 </p>
@@ -26,13 +23,19 @@
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fornecedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unidade)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PrecoCusto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PrecoVenda)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
         </tr>
@@ -47,18 +50,26 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fornecedor.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unidade.Nome)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PrecoCusto)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PrecoVenda)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Editar", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Detalhes", "Detalhes", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Excluir", "Excluir", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "EditarProduto", new { item.Id }, new { @class = "btn btn-warning" })
+                <form asp-controller="Produto" asp-action="Inativar" method="post" style="display: inline">
+                    <input name="id" value="@item.Id" class="form-control" hidden />
+                    <input type="submit" value="Excluir" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja fazer essa exclusão?');" />
+                </form>
             </td>
         </tr>
 }
