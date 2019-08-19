@@ -113,14 +113,14 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
             return View(produtoDTO);
         }
 
-        [HttpPost]
-        public IActionResult Inativar(int id) {
+        public IActionResult Promocoes() {
+            var listaPromocoes = database.Promocoes.ToList();
+            return View(listaPromocoes);
+        }
 
-            Produto produtoBanco = database.Produtos.First(p => p.Id == id);
-            produtoBanco.Status = false;
-            database.SaveChanges();
-
-            return RedirectToAction("Produtos", "Administrativo");
+        public IActionResult NovaPromocao() {
+            ViewBag.produtos = database.Produtos.Where(c => c.Status).ToList();
+            return View();
         }
 
     }

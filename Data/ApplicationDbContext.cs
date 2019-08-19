@@ -24,6 +24,7 @@ namespace MarktSys_ASP_NET_CORE.Data {
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<PromocaoProduto>().HasKey(table => new { table.PromocaoId, table.ProdutoId });
 
             modelBuilder.Entity<PromocaoProduto>()
@@ -36,7 +37,5 @@ namespace MarktSys_ASP_NET_CORE.Data {
                 .WithMany(t => t.PromocaoProdutos)
                 .HasForeignKey(pt => pt.ProdutoId);
         }
-
-        public DbSet<MarktSys_ASP_NET_CORE.DTO.ProdutoDTO> ProdutoDTO { get; set; }
     }
 }

@@ -1,0 +1,42 @@
+﻿@model MarktSys_ASP_NET_CORE.DTO.PromocaoDTO
+
+@{
+    ViewData["Title"] = "Nova Promoção";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Promocao" asp-action="Salvar" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PercentualDesconto" class="control-label"></label>
+                <input asp-for="PercentualDesconto" class="form-control" />
+                <span asp-validation-for="PercentualDesconto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataInicio" class="control-label"></label>
+                <input asp-for="DataInicio" class="form-control" />
+                <span asp-validation-for="DataInicio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataFinal" class="control-label"></label>
+                <input asp-for="DataFinal" class="form-control" />
+                <span asp-validation-for="DataFinal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PromocaoProdutos" class="control-label"></label>
+                @Html.DropDownListFor(m => m.PromocaoProdutos, new MultiSelectList(ViewBag.produtos, "Id", "Nome"), new { @class = "form-control", @multiple = "multiple" })
+                <span asp-validation-for="DataFinal" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-controller="Administrativo" asp-action="Promocao">Voltar à lista</a>
+</div>
+

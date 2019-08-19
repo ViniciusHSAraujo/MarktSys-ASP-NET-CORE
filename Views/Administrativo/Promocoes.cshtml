@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MarktSys_ASP_NET_CORE.Models.Promocao>
+
+@{
+    ViewData["Title"] = "Promoções";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script>
+        $(document).ready(function () {
+            $('#promocoes').DataTable();
+        });
+</script>
+<p>
+    <a asp-controller="Administrativo" asp-action="NovaPromocao" class="btn btn-success">Criar nova promoção</a>
+</p>
+<table class="table" id="promocoes">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PercentualDesconto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataFinal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PercentualDesconto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataInicio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataFinal)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "EditarProduto", new { item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Detalhes", "VerPromocao", new { item.Id }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
