@@ -2,6 +2,8 @@
 using MarktSys_ASP_NET_CORE.DTO;
 using MarktSys_ASP_NET_CORE.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace MarktSys_ASP_NET_CORE.Controllers {
@@ -13,7 +15,6 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
         }
 
         public IActionResult Salvar(ProdutoDTO produtoDTO) {
-
             if (ModelState.IsValid) {
                 Produto produto = new Produto() {
                     Nome = produtoDTO.Nome,
@@ -24,7 +25,6 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
                     PrecoVenda = produtoDTO.PrecoVenda,
                     Status = true
                 };
-
                 database.Produtos.Add(produto);
                 database.SaveChanges();
             } else {
@@ -34,7 +34,6 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
 
                 return View("../administrativo/novoproduto");
             }
-
             return RedirectToAction("Produtos", "Administrativo");
         }
 
@@ -68,6 +67,25 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
             database.SaveChanges();
 
             return RedirectToAction("Produtos", "Administrativo");
+        }
+
+        [HttpPost]
+        public IActionResult Produto(int id) {
+
+            if (id > 0) {
+                try {
+                    Produto produto = database.Produtos.Where(p => p.Status).Include(p => p.Categoria).Include(p => p.Unidade).Include(p => p.Fornecedor).First(p => p.Id == id);
+                    Response.StatusCode = 200;
+                    return Json(produto);
+                } catch {
+                    return NotFound();
+                }
+            } else {
+                Response.StatusCode = 406;
+                return new ObjectResult("");
+            }
+
+
         }
     }
 }

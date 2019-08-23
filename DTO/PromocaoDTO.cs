@@ -12,7 +12,7 @@ namespace MarktSys_ASP_NET_CORE.DTO {
         public int Id { get; set; }
 
         [Required]
-        public virtual ICollection<dynamic> PromocaoProdutos { get; set; }
+        public ICollection<PromocaoProduto> PromocaoProdutos { get; set; }
 
         [Required]
         public int PercentualDesconto { get; set; }
