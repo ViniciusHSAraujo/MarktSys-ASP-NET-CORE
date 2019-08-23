@@ -7,6 +7,7 @@ namespace MarktSys_ASP_NET_CORE.Models {
         public int Id { get; set; }
 
         public ICollection<PromocaoProduto> PromocaoProdutos { get; set; }
+
         public ICollection<Produto> Produtos { get; set; }
 
         public int PercentualDesconto { get; set; }

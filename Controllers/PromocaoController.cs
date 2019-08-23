@@ -24,9 +24,13 @@ namespace MarktSys_ASP_NET_CORE.Controllers
                     PercentualDesconto = promocaoDTO.PercentualDesconto,
                     DataInicio = promocaoDTO.DataInicio,
                     DataFinal = promocaoDTO.DataFinal,
-                    Produtos = promocaoDTO.Produtos,
+                    Produtos = new List<Produto>(),
                     PromocaoProdutos = new List<PromocaoProduto>()
                 };
+
+                foreach (var codigo in promocaoDTO.ProdutosSelecionados) {
+                    promocao.Produtos.Add(database.Produtos.First(p => p.Id == codigo));
+                }
 
                 // Validação só pra não ficar enchendo o banco de dados enquanto tento ajustar o salvamento..
                 if(promocao.Produtos.Count == 0) {
@@ -36,7 +40,7 @@ namespace MarktSys_ASP_NET_CORE.Controllers
                 foreach (var produto in promocao.Produtos) {
                     PromocaoProduto promocaoProduto = new PromocaoProduto() {
                         Promocao = promocao,
-                        Produto = produto
+                        Produto = produto,
                     };
                     promocao.PromocaoProdutos.Add(promocaoProduto);
                 }
@@ -51,7 +55,7 @@ namespace MarktSys_ASP_NET_CORE.Controllers
             return RedirectToAction("Promocoes", "Administrativo");
         }
 
-        /*public IActionResult Teste() {
+/*          public IActionResult Teste() {
             var promocao = new Promocao { PercentualDesconto = 10, DataInicio = DateTime.Now, DataFinal = DateTime.Now.AddDays(10), Produtos = new List<Produto>(), PromocaoProdutos = new List<PromocaoProduto>() };
 
             Produto p1 = database.Produtos.First(p => p.Id == 4);
@@ -67,10 +71,8 @@ namespace MarktSys_ASP_NET_CORE.Controllers
                     Promocao = promocao,
                     Produto = produto
                 };
-
                 promocao.PromocaoProdutos.Add(promocaoProduto);
             }
-
             database.Promocoes.Add(promocao);
             database.SaveChanges();
 

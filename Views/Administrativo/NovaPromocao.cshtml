@@ -25,7 +25,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Produtos" class="control-label"></label>
-                @Html.DropDownListFor(m => m.Produtos, new MultiSelectList(ViewBag.produtos, "Id", "Nome"), new { @class = "form-control", @multiple = "multiple" })
+
+                @Html.DropDownListFor(m => m.ProdutosSelecionados,
+                 new MultiSelectList(ViewBag.produtos, "Id", "Nome"),
+                 new { @class = "form-control", @multiple = "multiple" })
                 <span asp-validation-for="Produtos" class="text-danger"></span>
 
             </div>
