@@ -119,12 +119,6 @@ namespace MarktSys_ASP_NET_CORE.Migrations {
                 },
                 constraints: table => {
                     table.PrimaryKey("PK_Estoques", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Estoques_Produtos_ProdutoId",
-                        column: x => x.ProdutoId,
-                        principalTable: "Produtos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

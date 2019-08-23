@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MarktSys_ASP_NET_CORE.Models.Estoque>
+
+@{
+    ViewData["Title"] = "Estoque";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script>
+        $(document).ready(function () {
+            $('#estoques').DataTable();
+        });
+</script>
+<p>
+    <a asp-controller="Administrativo" asp-action="NovoEstoque" class="btn btn-success">Criar novo estoque</a>
+</p>
+<table class="table" id="estoques">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Produto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Saldo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Produto.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Saldo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "EditarProduto", new { item.Id }, new { @class = "btn btn-warning" })
+                <form asp-controller="Estoque" asp-action="Inativar" method="post" style="display: inline">
+                    <input name="id" value="@item.Id" class="form-control" hidden />
+                    <input type="submit" value="Excluir" class="btn btn-danger" onclick="return confirm('Você tem certeza que deseja fazer essa exclusão?');" />
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

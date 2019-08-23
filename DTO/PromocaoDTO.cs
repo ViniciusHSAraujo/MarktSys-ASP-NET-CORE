@@ -12,7 +12,7 @@ namespace MarktSys_ASP_NET_CORE.DTO {
         public int Id { get; set; }
 
         [Required]
-        public ICollection<PromocaoProduto> PromocaoProdutos { get; set; }
+        public ICollection<Produto> Produtos { get; internal set; }
 
         [Required]
         public int PercentualDesconto { get; set; }
@@ -22,6 +22,5 @@ namespace MarktSys_ASP_NET_CORE.DTO {
 
         [Required]
         public DateTime DataFinal { get; set; }
-
     }
 }

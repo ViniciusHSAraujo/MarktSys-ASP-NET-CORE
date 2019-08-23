@@ -123,5 +123,18 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
             return View();
         }
 
+        public IActionResult Estoque() {
+            var listaEstoques = database.Estoques.Include(e => e.Produto).ToList();
+            return View(listaEstoques);
+        }
+
+        public IActionResult NovoEstoque() {
+            ViewBag.produtos = database.Produtos.Where(c => c.Status).ToList();
+            return View();
+        }
+        public IActionResult EditarEstoque() {
+
+            return View();
+        }
     }
 }
