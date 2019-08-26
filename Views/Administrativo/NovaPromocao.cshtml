@@ -10,26 +10,26 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PercentualDesconto" class="control-label"></label>
-                <input asp-for="PercentualDesconto" class="form-control" />
+                <input asp-for="PercentualDesconto" class="form-control" required />
                 <span asp-validation-for="PercentualDesconto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DataInicio" class="control-label"></label>
-                <input asp-for="DataInicio" class="form-control" />
+                <input asp-for="DataInicio" class="form-control" required />
                 <span asp-validation-for="DataInicio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DataFinal" class="control-label"></label>
-                <input asp-for="DataFinal" class="form-control" />
+                <input asp-for="DataFinal" class="form-control" required />
                 <span asp-validation-for="DataFinal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Produtos" class="control-label"></label>
+                <label asp-for="ProdutosSelecionados" class="control-label"></label>
 
                 @Html.DropDownListFor(m => m.ProdutosSelecionados,
                  new MultiSelectList(ViewBag.produtos, "Id", "Nome"),
-                 new { @class = "form-control", @multiple = "multiple" })
-                <span asp-validation-for="Produtos" class="text-danger"></span>
+                 new { @class = "form-control", @multiple = "multiple" }) 
+                <span asp-validation-for="ProdutosSelecionados" class="text-danger"></span>
 
             </div>
 
@@ -40,6 +40,6 @@
     </div>
 </div>
 <div>
-    <a asp-controller="Administrativo" asp-action="Promocao">Voltar à lista</a>
+    <a asp-controller="Administrativo" asp-action="Promocoes">Voltar à lista</a>
 </div>
 

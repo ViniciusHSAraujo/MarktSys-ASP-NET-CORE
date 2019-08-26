@@ -11,8 +11,6 @@ namespace MarktSys_ASP_NET_CORE.DTO {
         [Required]
         public int Id { get; set; }
 
-        public ICollection<Produto> Produtos { get; internal set; }
-
         [Required]
         public List<int> ProdutosSelecionados { get; set; }
 

@@ -123,6 +123,13 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
             return View();
         }
 
+        public IActionResult DetalharPromocao(int id) {
+            Promocao promocao = database.Promocoes.Include(pp => pp.PromocaoProdutos).ThenInclude(pr => pr.Produto).FirstOrDefault(p => p.Id == id);
+
+
+            return View(promocao);
+        }
+
         public IActionResult Estoque() {
             var listaEstoques = database.Estoques.Include(e => e.Produto).ToList();
             return View(listaEstoques);

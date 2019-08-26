@@ -17,6 +17,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PercentualDesconto)
             </th>
             <th>
@@ -30,21 +33,24 @@
     </thead>
     <tbody>
         @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PercentualDesconto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataFinal)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "EditarProduto", new { item.Id }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Detalhes", "VerPromocao", new { item.Id }, new { @class = "btn btn-info" })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PercentualDesconto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFinal)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "EditarPromocao", new { item.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Detalhes", "DetalharPromocao", new { item.Id }, new { @class = "btn btn-info" })
+            </td>
+        </tr>
         }
     </tbody>
 </table>

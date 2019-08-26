@@ -19,7 +19,8 @@ namespace MarktSys_ASP_NET_CORE.Controllers
 
         public IActionResult Salvar(PromocaoDTO promocaoDTO) {
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid && promocaoDTO.ProdutosSelecionados.Count > 0) {
+
                 Promocao promocao = new Promocao() {
                     PercentualDesconto = promocaoDTO.PercentualDesconto,
                     DataInicio = promocaoDTO.DataInicio,
@@ -30,11 +31,6 @@ namespace MarktSys_ASP_NET_CORE.Controllers
 
                 foreach (var codigo in promocaoDTO.ProdutosSelecionados) {
                     promocao.Produtos.Add(database.Produtos.First(p => p.Id == codigo));
-                }
-
-                // Validação só pra não ficar enchendo o banco de dados enquanto tento ajustar o salvamento..
-                if(promocao.Produtos.Count == 0) {
-                    return View("../administrativo/novapromocao");
                 }
 
                 foreach (var produto in promocao.Produtos) {
