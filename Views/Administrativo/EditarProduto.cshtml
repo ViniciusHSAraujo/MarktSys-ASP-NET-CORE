@@ -26,14 +26,14 @@
                 <span asp-validation-for="FornecedorID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrecoCusto" class="control-label"></label>
-                <input asp-for="PrecoCusto" class="form-control" />
-                <span asp-validation-for="PrecoCusto" class="text-danger"></span>
+                <label asp-for="PrecoCustoString" class="control-label"></label>
+                <input asp-for="PrecoCustoString" type="number" step="0.01" min="0" class="form-control" value="@Model.PrecoCusto.ToString().Replace(",", ".")" />
+                <span asp-validation-for="PrecoCustoString" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrecoVenda" class="control-label"></label>
-                <input asp-for="PrecoVenda" class="form-control" />
-                <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+                <label asp-for="PrecoVendaString" class="control-label"></label>
+                <input asp-for="PrecoVendaString" type="number" step="0.01" min="0" class="form-control" value="@Model.PrecoVenda.ToString().Replace(",", ".")" />
+                <span asp-validation-for="PrecoVendaString" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="UnidadeID" class="control-label"></label>

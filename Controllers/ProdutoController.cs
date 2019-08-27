@@ -4,6 +4,7 @@ using MarktSys_ASP_NET_CORE.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace MarktSys_ASP_NET_CORE.Controllers {
@@ -21,8 +22,8 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
                     Categoria = database.Categorias.First(c => c.Id == produtoDTO.CategoriaID),
                     Unidade = database.Unidades.First(u => u.Id == produtoDTO.UnidadeID),
                     Fornecedor = database.Fornecedores.First(f => f.Id == produtoDTO.FornecedorID),
-                    PrecoCusto = produtoDTO.PrecoCusto,
-                    PrecoVenda = produtoDTO.PrecoVenda,
+                    PrecoCusto = float.Parse(produtoDTO.PrecoCustoString, CultureInfo.InvariantCulture.NumberFormat),
+                    PrecoVenda = float.Parse(produtoDTO.PrecoVendaString, CultureInfo.InvariantCulture.NumberFormat),
                     Status = true
                 };
                 database.Produtos.Add(produto);
@@ -45,8 +46,8 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
                 Produto produtoBanco = database.Produtos.First(p => p.Id == produtoDTO.Id);
 
                 produtoBanco.Nome = produtoDTO.Nome;
-                produtoBanco.PrecoCusto = produtoDTO.PrecoCusto;
-                produtoBanco.PrecoVenda = produtoDTO.PrecoVenda;
+                produtoBanco.PrecoCusto = float.Parse(produtoDTO.PrecoCustoString, CultureInfo.InvariantCulture.NumberFormat);
+                produtoBanco.PrecoVenda = float.Parse(produtoDTO.PrecoVendaString, CultureInfo.InvariantCulture.NumberFormat) ;
                 produtoBanco.Categoria = database.Categorias.First(c => c.Id == produtoDTO.CategoriaID);
                 produtoBanco.Fornecedor = database.Fornecedores.First(f => f.Id == produtoDTO.FornecedorID);
                 produtoBanco.Unidade = database.Unidades.First(u => u.Id == produtoDTO.UnidadeID);

@@ -126,7 +126,6 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
         public IActionResult DetalharPromocao(int id) {
             Promocao promocao = database.Promocoes.Include(pp => pp.PromocaoProdutos).ThenInclude(pr => pr.Produto).FirstOrDefault(p => p.Id == id);
 
-
             return View(promocao);
         }
 
@@ -139,9 +138,11 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
             ViewBag.produtos = database.Produtos.Where(c => c.Status).ToList();
             return View();
         }
-        public IActionResult EditarEstoque() {
+        public IActionResult EditarEstoque(int id) {
+            Estoque estoque = database.Estoques.First(e => e.Id == id);
+            ViewBag.produtos = database.Produtos.Where(c => c.Status).ToList();
 
-            return View();
+            return View(estoque);
         }
     }
 }

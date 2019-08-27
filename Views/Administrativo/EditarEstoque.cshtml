@@ -1,0 +1,33 @@
+﻿@model MarktSys_ASP_NET_CORE.Models.Estoque
+
+@{
+    ViewData["Title"] = "Editar Estoque";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <div class="col-md-4">
+        <form class="form-horizontal" asp-controller="Estoque" asp-action="Editar" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ProdutoId" class="control-label"></label>
+                <select asp-for="ProdutoId" class="form-control" asp-items='@(new SelectList(@ViewBag.Produtos, "Id", "Nome"))'></select>
+                <span asp-validation-for="ProdutoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Saldo" class="control-label"></label>
+                <input asp-for="Saldo" class="form-control" />
+                <span asp-validation-for="Saldo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Atualizar estoque" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Unidades" asp-controller="Administrativo">Voltar à lista</a>
+</div>
+
+

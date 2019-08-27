@@ -17,14 +17,17 @@ namespace MarktSys_ASP_NET_CORE.DTO {
         [Required]
         public int FornecedorID { get; set; }
 
-        [Required]
-        [Range(0, 9999999.99, ErrorMessage = "Valor inválido!")]
+        [Required(ErrorMessage = "É obrigatório preencher esse campo!")]
         public float PrecoCusto { get; set; }
 
-        [Required]
-        [Range(0, 9999999.99, ErrorMessage = "Valor inválido!")]
+        [Required(ErrorMessage = "É obrigatório preencher esse campo!")]
+        public string PrecoCustoString { get; set; }
+
+        [Required(ErrorMessage = "É obrigatório preencher esse campo!")]
         public float PrecoVenda { get; set; }
 
+        [Required(ErrorMessage = "É obrigatório preencher esse campo!")]
+        public string PrecoVendaString { get; set; }
 
         [Required]
         public int UnidadeID { get; set; }

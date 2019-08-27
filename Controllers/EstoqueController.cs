@@ -29,5 +29,23 @@ namespace MarktSys_ASP_NET_CORE.Controllers
 
             return RedirectToAction("Estoque", "Administrativo");
         }
+
+        [HttpPost]
+        public IActionResult Editar(Estoque estoque) {
+
+            if (ModelState.IsValid) {
+
+                Estoque estoqueBanco = database.Estoques.First(e => e.Id == estoque.Id);
+
+                estoqueBanco.Produto = database.Produtos.First(e => e.Id == estoque.ProdutoId);
+                estoqueBanco.Saldo = estoque.Saldo;
+
+                database.SaveChanges();
+            } else {
+                return View("../administrativo/novoestoque");
+            }
+
+            return RedirectToAction("Estoque", "Administrativo");
+        }
     }
 }
