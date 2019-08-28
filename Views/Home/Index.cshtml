@@ -92,12 +92,49 @@
             <hr>
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <button type="button" class="btn btn-success">Finalizar Compra</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalFinalizacaoCompra">Finalizar Compra</button>
                 <button type="button" class="btn btn-danger">Cancelar compra</button>
             </div>
             <div class="col-sm-4"></div>
         </div>
         <hr>
+    </div>
+
+
+    <!-- The Modal -->
+    <div class="modal" id="modalFinalizacaoCompra">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Finalizar venda</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h2>Total: R$<span id="valorTotalDaVenda">0,00</span></h2>
+                    <hr>
+                    <p>Valor pago:</p>
+                    <input type="number" class="form-control" id="valorPago">
+                    <p>Troco:</p>
+                    <input type="number" disabled class="form-control" id="valorTroco">
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <div id="posvenda">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnFechar">Fechar</button>
+                    </div>
+                    <div id="prevenda">
+                        <button type="button" class="btn btn-success" id="BtnFinalizarVenda">Finalizar venda</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 </body>

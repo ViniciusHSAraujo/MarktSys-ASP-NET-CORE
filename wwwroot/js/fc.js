@@ -3,8 +3,19 @@
 var enderecoProduto = "https://localhost:5001/Produto/Produto/";
 var compra = [];
 var produto;
+var valorTotalDaVenda = 0.00;
+
+/* Inicio */
+
+AtualizarValorTotalDaVenda();
+$("#posvenda").hide();
+
 
 /* Preenchimento de Campos*/
+
+function AtualizarValorTotalDaVenda() {
+    $("#valorTotalDaVenda").html(valorTotalDaVenda);
+}
 
 function preencherForumlario(dadosProduto) {
     $("#NomeProduto").val(dadosProduto.nome)
@@ -33,6 +44,9 @@ function adicionarProdutoNaTabela(p, q) {
     Object.assign(produtoTemp, produto)
 
     var venda = { produto: produtoTemp, quantidade: q, subtotal: produtoTemp.precoVenda * q };
+
+    valorTotalDaVenda += venda.subtotal;
+    AtualizarValorTotalDaVenda();
 
     compra.push(venda);
 
@@ -71,3 +85,41 @@ $("#pesquisarProduto").click(function () {
         alert("Produto inválido!");
     })
 })
+
+
+/* Finalização da Venda */
+
+$("#BtnFinalizarVenda").click(function () {
+    if (valorTotalDaVenda <= 0) {
+        alert("Compra inválida! Nenhum produto selecionado!")
+        return;
+    } else {
+        var valorPago = $("#valorPago").val();
+
+        if (isNaN(valorPago)) {
+            alert("VALOR INVÁLIDO!");
+            return;
+        } else if (valorPago < valorTotalDaVenda) {
+            alert("Valor pago inferior ao valor da compra!");
+            return;
+        } else {
+            $("#posvenda").show();
+            $("#prevenda").hide();
+            $("#valorPago").prop("disabled", true)
+            var valorTroco = valorPago - valorTotalDaVenda;
+            $("#valorTroco").val(valorTroco);
+        }
+    }
+});
+
+function restaurarTela() {
+    $("#posvenda").hide();
+    $("#prevenda").show();
+    $("#valorPago").prop("disabled", false)
+    $("#valorPago").val("");
+    $("#valorTroco").val("");
+}
+
+$("#btnFechar").click(function () {
+    restaurarTela();
+});
