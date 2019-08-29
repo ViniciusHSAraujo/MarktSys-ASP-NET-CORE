@@ -75,8 +75,23 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
 
             if (id > 0) {
                 try {
+
                     Produto produto = database.Produtos.Where(p => p.Status).Include(p => p.Categoria).Include(p => p.Unidade).Include(p => p.Fornecedor).First(p => p.Id == id);
-                    Response.StatusCode = 200;
+
+                    var qtdeEstoque = database.Estoques.Include(p => p.Produto).AsEnumerable().Where(e => e.Produto.Id == id).Sum(e => e.Saldo);
+
+                    var promocao = database.Promocoes.Include(pr => pr.PromocaoProdutos).ThenInclude(pp => pp.Produto).Where(pr => pr.DataInicio < DateTime.Now && pr.DataFinal > DateTime.Now && pr.Produtos.Contains(produto)).LastOrDefault();
+
+                    if (qtdeEstoque <= 0) {
+                        throw new Exception("Produto sem saldo!");
+                    }
+
+                    if(promocao != null) {
+                        produto.PrecoVenda = produto.PrecoVenda * (float)(1 - Convert.ToDouble(promocao.PercentualDesconto) / 100);
+                        produto.PromocaoProdutos = null;
+                    }
+
+                Response.StatusCode = 200;
                     return Json(produto);
                 } catch {
                     return NotFound();

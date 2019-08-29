@@ -1,6 +1,7 @@
 ﻿/* Variáveis */
 
-var enderecoProduto = "https://localhost:5001/Produto/Produto/";
+var enderecoProduto = "https://localhost:44303/Produto/Produto/";
+// var enderecoProduto = "https://localhost:5001/Produto/Produto/";
 var compra = [];
 var produto;
 var valorTotalDaVenda = 0.00;
