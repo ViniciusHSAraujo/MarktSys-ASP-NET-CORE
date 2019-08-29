@@ -1,9 +1,12 @@
 ﻿/* Variáveis */
 
-var enderecoProduto = "https://localhost:44303/Produto/Produto/";
-// var enderecoProduto = "https://localhost:5001/Produto/Produto/";
+//var enderecoProduto = "https://localhost:44303/Produto/Produto/";
+var enderecoProduto = "https://localhost:5001/Produto/Produto/";
+//var enderecoVenda = "https://localhost:44303/Venda/";
+var enderecoVenda = "https://localhost:5001/Venda/";
 var compra = [];
 var produto;
+var saldo;
 var valorTotalDaVenda = 0.00;
 
 /* Inicio */
@@ -19,25 +22,35 @@ function AtualizarValorTotalDaVenda() {
 }
 
 function preencherForumlario(dadosProduto) {
-    $("#NomeProduto").val(dadosProduto.nome)
-    $("#CategoriaProduto").val(dadosProduto.categoria.nome)
-    $("#FornecedorProduto").val(dadosProduto.fornecedor.nome)
-    $("#PrecoCustoProduto").val(dadosProduto.precoCusto)
-    $("#PrecoVendaProduto").val(dadosProduto.precoVenda)
+    $("#NomeProduto").val(dadosProduto.produto.nome)
+    $("#CategoriaProduto").val(dadosProduto.produto.categoria.nome)
+    $("#FornecedorProduto").val(dadosProduto.produto.fornecedor.nome)
+    $("#PrecoCustoProduto").val(dadosProduto.produto.precoCusto)
+    $("#PrecoVendaProduto").val(dadosProduto.produto.precoVenda)
+    $("#SaldoDoItem").val(dadosProduto.saldo)
 }
 
 function limparForumlario() {
-    $("#NomeProduto").val("")
-    $("#CategoriaProduto").val("")
-    $("#FornecedorProduto").val("")
-    $("#PrecoCustoProduto").val("")
-    $("#PrecoVendaProduto").val("")
-    $("#QuantidadeProduto").val("")
+    $("#NomeProduto").val("");
+    $("#CategoriaProduto").val("");
+    $("#FornecedorProduto").val("");
+    $("#PrecoCustoProduto").val("");
+    $("#PrecoVendaProduto").val("");
+    $("#QuantidadeProduto").val("");
+    $("#SaldoDoItem").val("");
 }
 
-function removerDaCompra() {
-    compra.splice(compra.indexOf(), 1)
-}
+$('#tabelaProdutos').on('click', '.remover', function () {
+    var indice = this.parentElement.parentElement.rowIndex - 1;
+
+    valorTotalDaVenda -= compra[indice].subtotal;
+    AtualizarValorTotalDaVenda();
+
+    compra.splice(indice, 1)
+    
+    $(this).closest('tr').remove();
+});
+
 
 function adicionarProdutoNaTabela(p, q) {
 
@@ -51,7 +64,7 @@ function adicionarProdutoNaTabela(p, q) {
 
     compra.push(venda);
 
-    $("#produtos").append(`
+    $("#tbodyProdutos").append(`
     <tr>
         <td>${p.id}</td>
         <td>${p.nome}</td>
@@ -59,7 +72,7 @@ function adicionarProdutoNaTabela(p, q) {
         <td>R$${p.precoVenda}</td>
         <td>${p.unidade.nome}</td>
         <td>R$${p.precoVenda * q}</td>
-        <td><button class="btn btn-danger" onclick="removerDaCompra()">Excluir</button></td>
+        <td><button class="remover btn btn-danger" id="excluir">Excluir</button></td>
     </tr>`);
 }
 
@@ -68,9 +81,12 @@ $("#produtoForm").on("submit", function (event) {
     var produtoTabela = produto;
     var quantidade = $("#QuantidadeProduto").val()
 
-    adicionarProdutoNaTabela(produtoTabela, quantidade);
-
+    if (saldo < quantidade) {
+        alert(`Saldo indisponível! Esse item tem apenas ${saldo} de saldo!`);
+    } else {
+        adicionarProdutoNaTabela(produtoTabela, quantidade);
         limparForumlario();
+    }
 
 });
 
@@ -79,8 +95,9 @@ $("#pesquisarProduto").click(function () {
     var codProduto = $("#codProduto").val();
     var enderecoTemporario = enderecoProduto + codProduto
     $.post(enderecoTemporario, function (dados, estados) {
-    /*alert("Dados: " + dados + " Status: " + status)*/
-        produto = dados;
+        /*alert("Dados: " + dados + " Status: " + status)*/
+        produto = dados.produto;
+        saldo = dados.saldo
         preencherForumlario(dados);
     }).fail(function() {
         alert("Produto inválido!");
@@ -103,12 +120,37 @@ $("#BtnFinalizarVenda").click(function () {
         } else if (valorPago < valorTotalDaVenda) {
             alert("Valor pago inferior ao valor da compra!");
             return;
-        } else {
+        } else { 
             $("#posvenda").show();
             $("#prevenda").hide();
             $("#valorPago").prop("disabled", true)
             var valorTroco = valorPago - valorTotalDaVenda;
             $("#valorTroco").val(valorTroco);
+
+            compra.forEach(elemento => {
+                elemento.produto = elemento.produto.id;
+            });
+
+            var venda = {
+                total: valorTotalDaVenda,
+                troco: valorTroco,
+                produtos: compra
+
+            }
+
+            $.ajax({
+                type: "post",
+                url: enderecoVenda,
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(venda),
+                success: function (dados) {
+                    console.log("Dados enviados com sucesso!");
+                    console.log(dados);
+                }
+            });
+
+            $('#tbodyProdutos').empty();
         }
     }
 });

@@ -78,7 +78,9 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
 
                     Produto produto = database.Produtos.Where(p => p.Status).Include(p => p.Categoria).Include(p => p.Unidade).Include(p => p.Fornecedor).First(p => p.Id == id);
 
-                    var qtdeEstoque = database.Estoques.Include(p => p.Produto).AsEnumerable().Where(e => e.Produto.Id == id).Sum(e => e.Saldo);
+                    var qtdeEntradas = database.Estoques.Include(p => p.Produto).AsEnumerable().Where(e => e.Produto.Id == id).Sum(e => e.Saldo);
+                    var qtdeSaidas = database.Saidas.Include(p => p.Produto).AsEnumerable().Where(e => e.Produto.Id == id).Sum(e => e.Quantidade);
+                    var qtdeEstoque = qtdeEntradas - qtdeSaidas;
 
                     var promocao = database.Promocoes.Include(pr => pr.PromocaoProdutos).ThenInclude(pp => pp.Produto).Where(pr => pr.DataInicio < DateTime.Now && pr.DataFinal > DateTime.Now && pr.Produtos.Contains(produto)).LastOrDefault();
 
@@ -92,7 +94,8 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
                     }
 
                 Response.StatusCode = 200;
-                    return Json(produto);
+
+                    return Json(new { produto = produto, saldo = qtdeEstoque });
                 } catch {
                     return NotFound();
                 }

@@ -7,9 +7,13 @@ namespace MarktSys_ASP_NET_CORE.Models {
 
         public Produto Produto { get; set; }
 
+        public float Quantidade { get; set; }
+
         public float ValorDaVenda { get; set; }
 
         public DateTime DataDaVenda { get; set; }
+
+        public Venda Venda { get; set; }
 
     }
 }
