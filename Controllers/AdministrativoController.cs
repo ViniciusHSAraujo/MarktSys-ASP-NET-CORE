@@ -1,11 +1,14 @@
 ﻿using MarktSys_ASP_NET_CORE.Data;
 using MarktSys_ASP_NET_CORE.DTO;
 using MarktSys_ASP_NET_CORE.Models;
+using MarktSys_ASP_NET_CORE.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace MarktSys_ASP_NET_CORE.Controllers {
+    [Authorize]
     public class AdministrativoController : Controller {
 
         public readonly ApplicationDbContext database;
@@ -143,6 +146,21 @@ namespace MarktSys_ASP_NET_CORE.Controllers {
             ViewBag.produtos = database.Produtos.Where(c => c.Status).ToList();
 
             return View(estoque);
+        }
+
+        public IActionResult Vendas() {
+            var listaVendas = database.Vendas.ToList();
+            return View(listaVendas);
+        }
+
+        public IActionResult DetalharVenda(int id) {
+
+            VendaSaidas vendaSaidas = new VendaSaidas() {
+                Venda = database.Vendas.FirstOrDefault(v => v.Id == id),
+                Saidas = database.Saidas.Include(s => s.Produto).Where(s => s.Venda.Id == id).ToList()
+            };
+
+            return View(vendaSaidas);
         }
     }
 }

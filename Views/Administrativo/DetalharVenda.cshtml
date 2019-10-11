@@ -1,35 +1,39 @@
-﻿@model MarktSys_ASP_NET_CORE.Models.Promocao
+﻿@model MarktSys_ASP_NET_CORE.Models.ViewModel.VendaSaidas
 
 @{
-    ViewData["Title"] = "Detalhar Promoção";
+    ViewData["Title"] = "Detalhar Venda";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-
 <div>
-    <h4>Promocao @Model.Id.ToString("Nº 000000") </h4>
+    <h4>Venda @Model.Venda.Id.ToString("Nº 000000") </h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PercentualDesconto)
+            @Html.DisplayNameFor(model => model.Venda.DataDaVenda)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PercentualDesconto)%
+            @Html.DisplayFor(model => model.Venda.DataDaVenda)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataInicio)
+            @Html.DisplayNameFor(model => model.Venda.ValorTotal)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataInicio)
+            @Html.DisplayFor(model => model.Venda.ValorTotal)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataFinal)
+            @Html.DisplayNameFor(model => model.Venda.ValorPago)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataFinal)
+            @Html.DisplayFor(model => model.Venda.ValorPago)
         </dd>
         <dt class="col-sm-2">
-            Produtos em Promoção:
+            @Html.DisplayNameFor(model => model.Venda.ValorDoTroco)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Venda.ValorDoTroco)
+        </dd>
+        <dt class="col-sm-2">
+            Produtos Comprados:
         </dt>
         <dd class="col-sm-12">
             <table class="table" id="produtos">
@@ -42,15 +46,15 @@
                             Nome
                         </th>
                         <th>
-                            Preço Normal
+                            Quantidade
                         </th>
                         <th>
-                            Preço com Desconto
+                            Subtotal
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.PromocaoProdutos.ToList()) {
+                    @foreach (var item in Model.Saidas) {
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Produto.Id)
@@ -59,10 +63,10 @@
                                 @Html.DisplayFor(modelItem => item.Produto.Nome)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Produto.PrecoVenda)
+                                @Html.DisplayFor(modelItem => item.Quantidade)
                             </td>
                             <td>
-                                @(item.Produto.PrecoVenda * (1 - Convert.ToDouble(Model.PercentualDesconto) / 100))
+                                @Html.DisplayFor(modelItem => item.ValorDaVenda)
                             </td>
                         </tr>
                     }

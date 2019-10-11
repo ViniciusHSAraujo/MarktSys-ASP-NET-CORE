@@ -25,7 +25,8 @@ namespace MarktSys_ASP_NET_CORE.Data {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<PromocaoProduto>().HasKey(table => new { table.PromocaoId, table.ProdutoId });
+            modelBuilder.Entity<PromocaoProduto>()
+                .HasKey(table => new { table.PromocaoId, table.ProdutoId });
 
             modelBuilder.Entity<PromocaoProduto>()
             .HasOne(pp => pp.Promocao)

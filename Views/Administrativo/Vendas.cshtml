@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MarktSys_ASP_NET_CORE.Models.Venda>
+
+@{
+    ViewData["Title"] = "Vendas";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script>
+        $(document).ready(function () {
+            $('#vendas').DataTable();
+        });
+</script>
+<p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-success">Realizar nova venda</a>
+</p>
+<table class="table" id="vendas">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataDaVenda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorDoTroco)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataDaVenda)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorPago)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorDoTroco)
+                </td>
+                <td>
+                @Html.ActionLink("Detalhes", "DetalharVenda", new { item.Id }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

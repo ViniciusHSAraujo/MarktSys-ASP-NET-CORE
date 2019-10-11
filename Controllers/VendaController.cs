@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarktSys_ASP_NET_CORE.Controllers{
 
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class VendaController : ControllerBase {
 
         public readonly ApplicationDbContext database;
@@ -18,6 +18,9 @@ namespace MarktSys_ASP_NET_CORE.Controllers{
             this.database = database;
         }
 
+        public IActionResult Get(string options) {
+            return Ok(database.Vendas.ToList());
+        }
         [HttpPost]
         public IActionResult Post([FromBody] VendaDTO dados) {
 
@@ -27,7 +30,7 @@ namespace MarktSys_ASP_NET_CORE.Controllers{
                 ValorPago = 
                     dados.Troco <= 0.01f 
                     ? dados.Total 
-                    : dados.Total - dados.Troco,
+                    : dados.Total + dados.Troco,
                 DataDaVenda = DateTime.Now
             };
             database.Vendas.Add(venda);
